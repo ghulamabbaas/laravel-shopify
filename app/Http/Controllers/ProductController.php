@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -12,11 +13,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
     public function index()
     {
-        $products = Product::latest()->paginate(5);
-            
-        return view('product-view.index',compact('products'))
+        $products = Product::latest()->paginate(8);
+        $categories = Category::all(); 
+        return view('product-view.index',compact('products','categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
